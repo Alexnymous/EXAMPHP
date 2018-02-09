@@ -1,43 +1,32 @@
 <?php
 
-	session_start();
+$personne = array(
+    array ("nom" => "Brown", "adresse"=> "2, rue Thomas Edison", "CP" => "27000", "Ville" => "Evreux", "Email" => "toto@durand.com", "Date de naissance" => "1988-08-13"),
+    array ("nom" => "Dupond", "adresse"=> "13, rue Mal Chance", "CP" => "66666", "Ville" => "Devil", "Email" => "dupond@durand.com", "Date de naissance" => "1966-06-06"),
+    array ("nom" => "Mojito", "adresse"=> "9, rue de la soif", "CP" => "97000", "Ville" => "Martinique", "Email" => "Mojito@durand.com", "Date de naissance" => "1909-09-25"),
+    array ("nom" => "Puppets", "adresse"=> "96, rue de la marionnette", "CP" => "69000", "Ville" => "Lyon", "Email" => "rire@durand.com", "Date de naissance" => "1989-10-23"),
+);
+//echo print_r($personne);
+$keys = array_keys($personne);
 
-	include_once "./fonctions/connexionBDD.php"; 
-	include_once "./fonctions/callPage.php";
-	include_once "./fonctions/callPageTitle.php";
+for ($i = 0; $i < count($personne); $i++) {
+    echo $keys[$i] . '<br>';
 
-	include_once "./Bin/conf_connexion.php"; //fichier de définition des constantes de connexion à la BDD
+    foreach ($personne[$keys[$i]] as $key => $value) {
+        $date_us = 'Date de naissance';
+        $date_fr = date('d-m-Y', strtotime(str_replace('-', '/', $date_fr)));
+        echo $key . ' : ' . $value . '<br>';
+    }
 
-?>
+}
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	
-	<link rel="stylesheet" href="./assets/css/screen.css">
-						
-	<title>Réservation salle | <?php echo(callPageTitle()); ?></title>
-</head>
+/*for ($ligne = 0; $ligne < 4; $ligne++){
+    $numeroMembre = $ligne + 1;
+    echo 'Membre n°' .$numeroMembre. '<br><ul>';
 
-	<body>
+    for($colonnes = 0; $colonnes < 6; $colonnes++){
+        echo'<li>' .$personne[$ligne][$colonnes]. '</li>';
+    }
 
-		<?php	include_once("./include/header.php"); ?>
+    echo '</ul>';*/
 
-			<main>
-				<?php
-					callPage();
-				?>
-			</main>
-			
-		<?php	include_once("./include/footer.php"); ?>
-
-		</div>
-	</body>
-
-	<!-- GOOGLE FONT -->
-	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400" rel="stylesheet">
-	
-</html>

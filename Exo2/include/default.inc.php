@@ -1,1 +1,0 @@
-<h1>Vous n'avez rien à faire ici, cette page n'existe pas !</h1>
