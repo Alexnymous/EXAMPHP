@@ -14,7 +14,7 @@ for ($i = 0; $i < count($personne); $i++) {
 
     foreach ($personne[$keys[$i]] as $key => $value) {
         $date_us = 'Date de naissance';
-        $date_fr = date('d-m-Y', strtotime(str_replace('-', '/', $date_fr)));
+        $date_fr = date('d-m-Y', strtotime(str_replace('-', '/', $date_us)));
         echo $key . ' : ' . $value . '<br>';
     }
 

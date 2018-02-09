@@ -29,7 +29,11 @@ if (isset($_POST['montant'])) {
             <option value="USD">Dollar</option>
         </select>
         <br />
-        Conversion :  <?php echo $resultat.' '.$montantConverti; ?>
+        Conversion :  <?php echo $montant * $tauxConversion;
+        var_dump($montant * $tauxConversion);
+        ?>
+
+
         <br /><br />
         <input type="submit" name="valider" value="valider">
     </form>

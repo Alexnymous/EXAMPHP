@@ -1,43 +1,74 @@
 <?php
 
-	session_start();
+if(isset($_POST['validation'])) {
+    $tabError = array();
+    $title = $_POST['titre'];
+    $realisateur = $_POST['realisateur'];
+    $acteurs = $_POST['acteurs'];
+    $producteur = $_POST['producteur'];
+    $anne = $_POST['annee'];
+    $langue = $_POST['langue'];
+    $category = $_POST['category'];
+    $storyline = $_POST['synopsis'];
+    $video = $_POST['url_video'];
 
-	include_once "./fonctions/connexionBDD.php"; 
-	include_once "./fonctions/callPage.php";
-	include_once "./fonctions/callPageTitle.php";
+    if ($title = "" && strlen($title) < 5) {
+        array_push($tabError, 'Veuillez saisir un titre de film');
+    }
+    if ($realisateur = "" && strlen($realisateur) < 5) {
+        array_push($tabError, 'Veuillez saisir un réalisateur');
+    }
+    if ($acteurs = "" && strlen($acteurs) < 5) {
+        array_push($tabError, 'Veuillez saisir un acteur');
+    }
+    if ($producteur = "" && strlen($producteur) < 5) {
+        array_push($tabError, 'Veuillez sasir un producteur');
+    }
+    if ($anne = "") {
+        array_push($tabError, 'Veuillez sélectionner une année');
+    }
+    if ($langue = "") {
+        array_push($tabError, 'Veuillez sélectionner une langue');
+    }
+    if ($category = "") {
+        array_push($tabError, 'Veuillez sélectionner une catégorie');
+    }
+    if ($storyline = "" && strlen($storyline) < 5) {
+        array_push($tabError, 'Veuillez sélectionner une catégorie');
+    }
+    if ($video = "") {
+        array_push($tabError, 'Veuillez sélectionner une catégorie');
+    }
+    if (count($tabError) != 0) {
+        $message = "<ul>";
 
-	include_once "./Bin/conf_connexion.php"; //fichier de définition des constantes de connexion à la BDD
+        for ($i = 0; $i < count($tabErreur_article); $i++) {
+            $message .= "<li>" . $tabErreur_article[$i] . "</li>";
+        }
+        $message .= "</ul>";
+        echo($message);
+        include("index.php");
+    }
+}
+else{
+    $connexion = connexion();
+    $title = addcslashes(htmlentities($title));
+    $realisateur =  addcslashes(htmlentities($realisateur));
+    $acteurs =  addcslashes(htmlentities($acteurs));
+    $producteur =  addcslashes(htmlentities($producteur));
+    $storyline =  addcslashes(htmlentities($storyline));
+    $video =  addcslashes(htmlentities($video));
 
-?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	
-	<link rel="stylesheet" href="./assets/css/screen.css">
-						
-	<title>Réservation salle | <?php echo(callPageTitle()); ?></title>
-</head>
+    $requete = "insert into movies (ID_movie, title, actors, director, producer, year_of_producer, language, category, storyline, video) VALUES (NULL , '$titre', '$acteurs', '$realisateur', '$producteur', '$anne', '$langue', '$category','$storyline', '$category', '$video')";
+    $resultatRequete = $connexion->exec($requete);
+    $comptage = count($resultatRequete);
 
-	<body>
+    if ($comptage == 1){
 
-		<?php	include_once("./include/header.php"); ?>
+        echo ('Votre film a bien été ajouté à la base de donnée.' .'<br>' .'Merci de votre participation.');
+    }
 
-			<main>
-				<?php
-					callPage();
-				?>
-			</main>
-			
-		<?php	include_once("./include/footer.php"); ?>
 
-		</div>
-	</body>
 
-	<!-- GOOGLE FONT -->
-	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400" rel="stylesheet">
-	
-</html>
+    }
